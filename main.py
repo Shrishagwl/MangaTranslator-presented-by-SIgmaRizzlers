@@ -142,20 +142,6 @@ class MangaTranslatorApp(ctk.CTk):
         )
         widgets.append(button_id)
         
-        # i added it, but the rogress bar is kinda broken...
-        self.progress_bar = ctk.CTkProgressBar(
-            self.canvas,
-            width=300,
-            height=20,
-            corner_radius=10,
-            bg_color="#263642"
-        )
-        progress_bar_id = self.canvas.create_window(
-            650, 606, anchor="nw", window=self.progress_bar, tags="FileUploadPage"
-        )
-        self.progress_bar.set(0)
-        widgets.append(progress_bar_id)
-        
         self.pages["FileUploadPage"] = widgets
 
     def init_translation_page(self):
@@ -316,7 +302,6 @@ class MangaTranslatorApp(ctk.CTk):
         if file_paths:
             self.batch_upload_button.configure(text="Processing Batch...", state="disabled")
             self.upload_button.configure(state="disabled")
-            self.progress_bar.show()
             threading.Thread(target=self.process_batch, args=(file_paths,)).start()
 
     def process_batch(self, file_paths):
@@ -324,14 +309,8 @@ class MangaTranslatorApp(ctk.CTk):
         try:
             batch_processor = BatchProcessor(max_workers=3, chunk_size=5)
             
-            def update_progress(current, total):
-                progress = current / total
-                self.progress_bar.set(progress)
-                self.update()
-            
             results = batch_processor.process_pdf_batch(
                 file_paths, 
-                progress_callback=update_progress,
                 translate_func=translate_text
             )
             
@@ -354,8 +333,6 @@ class MangaTranslatorApp(ctk.CTk):
         finally:
             self.batch_upload_button.configure(text="Batch Upload", state="normal")
             self.upload_button.configure(state="normal")
-            self.progress_bar.set(0)
-            self.progress_bar.configure(state="hidden")
 
 
 if __name__ == "__main__":
