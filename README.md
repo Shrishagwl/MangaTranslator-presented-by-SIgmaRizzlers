@@ -149,4 +149,4 @@ Common issues and solutions:
    - Consider GPU usage
 
 ## Acknowledgments
-
+Model used: https://huggingface.co/cyy0/JaptoEnBetterMTL-2
