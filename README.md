@@ -1,1 +1,1 @@
-# MangaTranslator-presented-by-SIgmaRizzlers
+# MangaTranslator-presented-by-SigmaRizzlers
