@@ -11,7 +11,7 @@ class BatchProcessor:
         self.current_progress = 0
         self.total_files = 0
         
-    def process_pdf_batch(self, file_paths, progress_callback=None, translate_func=None):
+    def process_pdf_batch(self, file_paths, translate_func=None):
         """Process multiple PDF files in batches"""
         self.total_files = len(file_paths)
         self.current_progress = 0
@@ -20,7 +20,7 @@ class BatchProcessor:
         with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
             for i in range(0, len(file_paths), self.chunk_size):
                 chunk = file_paths[i:i + self.chunk_size]
-                chunk_futures = [executor.submit(self._process_single_file, file_path, translate_func, progress_callback) 
+                chunk_futures = [executor.submit(self._process_single_file, file_path, translate_func) 
                                for file_path in chunk]
                 
                 for future in chunk_futures:
@@ -33,7 +33,7 @@ class BatchProcessor:
                 
         return results
     
-    def _process_single_file(self, file_path, translate_func, progress_callback):
+    def _process_single_file(self, file_path, translate_func):
         """Process a single PDF file"""
         try:
             text_data = extract_text(file_path)
@@ -44,11 +44,6 @@ class BatchProcessor:
             
             output_pdf = os.path.splitext(file_path)[0] + "_translated.pdf"
             create_translated_pdf(file_path, output_pdf, text_data)
-            
-            with self.processing_lock:
-                self.current_progress += 1
-                if progress_callback:
-                    progress_callback(self.current_progress, self.total_files)
             
             return {"input": file_path, "output": output_pdf, "success": True}
             
