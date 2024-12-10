@@ -1,61 +1,122 @@
-### **What is the purpose of this application?**
-This is an AI-powered tool designed to translate Japanese text in PDFs (e.g., manga) into English while maintaining the original layout. It supports both text-based and image-based PDFs, making it useful for translating scanned documents or manga.
+# MangaTranslator-presented-by-SigmaRizzlers
 
----
-tags:
-- translation
-language:
-- unk
-- unk
-datasets:
-- cyy0/open-mantra-bettermtl
-co2_eq_emissions:
-  emissions: 0.015690732803499252
----
-# About BetterMTL
+# Manga Translator
 
-- Trained using Helsinki-NLP/opus-mt-ja-en
-- Fine-tuned with OpenMantra Dataset (Lightly modified)
-- Japanese to English one-way translation 
+A desktop application that translates Japanese manga/PDF files to English using AI-powered translation.
 
-# Info
+## Features
 
-- Problem Type - Translation
-- Model ID: 3620696849
-- Max Context Length: 512
-- CO2 Emissions (in grams): 0.0157
+- Single PDF file translation
+- Batch processing of multiple PDFs
+- OCR (Optical Character Recognition) for Japanese text
+- AI-powered Japanese to English translation
+- Progress tracking for batch operations
+- Translation history management
+- Dark/Light mode support
 
-## Validation Metrics
+## Prerequisites
 
-- Loss: 2.309
-- SacreBLEU: 9.750
-- Gen len: 10.522
+- Python 3.8 or higher
+- Tesseract OCR
+- Poppler
+- GPU recommended for faster processing
 
----
+### Required Dependencies
 
-### **What are the main features of this application?**
-- **Language Detection:** Automatically detects the document's language to avoid translating English documents unnecessarily.
-- **OCR Support:** Extracts text from image-based PDFs, such as scanned manga pages, using Tesseract OCR.
-- **Preserves Layout:** Ensures that translated text appears in the same position as the original text.
-- **Seamless Workflow:** Handles the full pipeline from text extraction to translation and PDF creation.
+The application requires the following external tools:
+- Tesseract-OCR (for text recognition)
+- Poppler (for PDF processing)
 
----
+## Installation
 
-### **What do users need to install to use this application?**
-- **Tesseract OCR**: For OCR support on image-based PDFs.
-  - Windows, Linux, and macOS installation instructions are included.
-- **Poppler**: For converting PDF pages into images.
-  - Installation steps are provided for all major platforms.
-- **Python Dependencies**: A `requirements.txt` file is provided to simplify dependency installation.
+1. Clone the repository:
+bash
+git clone [repository-url]
+cd manga-translator
 
----
+2. Install required Python packages:
+bash
+pip install -r requirements.txt
 
-### **What is the expected folder structure for this project?**
-The project follows this structure:
-MangaTranslator/
-├── README.md               # Instructions for the project
-├── requirements.txt        # Python dependencies
-├── main.py                 # Main script
-├── models/                 # Pre-trained translation models
+## Usage
 
-x 
+### Run from Source
+bash
+python main.py
+
+### Features Guide
+
+1. **Single File Translation**
+   - Click "Upload Single File"
+   - Select a PDF file
+   - Wait for processing
+   - Download the translated PDF
+
+2. **Batch Processing**
+   - Click "Batch Upload"
+   - Select multiple PDF files
+   - Monitor progress bar
+   - Access translated files through history
+
+3. **Translation History**
+   - View all translated files
+   - Download previous translations
+   - Track translation dates
+
+4. **Settings**
+   - Toggle between Light/Dark modes
+   - Additional settings can be configured here
+
+## Project Structure
+manga-translator/
+├── main.py 
+├── batch_processor.py
+├── pdf_processor.py 
+├── requirements.txt
+├── bg.png
+└── tempDependencies
+
+## Technical Details
+
+### Components
+
+1. **PDF Processing**
+   - Uses OCRmyPDF for text extraction
+   - Implements memory-efficient processing
+   - Handles large PDF files
+
+2. **Translation**
+   - Uses the JaptoEnBetterMTL-2 model
+   - Supports batch translation
+   - Maintains original PDF layout
+
+3. **UI**
+   - Built with CustomTkinter
+   - Responsive design
+   - Progress tracking
+
+### Performance Considerations
+
+- Memory management for large PDFs
+- Batch processing with controlled resource usage
+- Progress tracking for long operations
+
+## Troubleshooting
+
+Common issues and solutions:
+
+1. **OCR Issues**
+   - Ensure Tesseract is properly installed
+   - Check language pack installation
+
+2. **PDF Processing Errors**
+   - Verify Poppler installation
+   - Check PDF file permissions
+
+3. **Memory Issues**
+   - Reduce batch size
+   - Close other applications
+   - Consider GPU usage
+
+## Acknowledgments
+
