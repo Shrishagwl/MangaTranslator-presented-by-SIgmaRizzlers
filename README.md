@@ -21,11 +21,41 @@ A desktop application that translates Japanese manga/PDF files to English using 
 - Poppler
 - GPU recommended for faster processing
 
+### Required Software
+
+1. **Tesseract OCR**:
+   - **Windows**: [Download and Install](https://github.com/UB-Mannheim/tesseract/wiki). Add the installation path to your system's `PATH` environment variable.
+   - **Linux**: Install via package manager:
+     ```bash
+     sudo apt install tesseract-ocr
+     ```
+   - **macOS**: Install via Homebrew:
+     ```bash
+     brew install tesseract
+     ```
+2. **Poppler** (for PDF to image conversion):
+   - **Windows**: [Download and Extract](https://github.com/oschwartz10612/poppler-windows/releases). Add the `bin` folder to your `PATH`.
+   - **Linux**: Install via package manager:
+     ```bash
+     sudo apt install poppler-utils
+     ```
+   - **macOS**: Install via Homebrew:
+     ```bash
+     brew install poppler
+
 ### Required Dependencies
 
 The application requires the following external tools:
 - Tesseract-OCR (for text recognition)
 - Poppler (for PDF processing)
+
+These should be placed in the `tempDependencies` folder: 
+tempDependencies/
+├── Tesseract-OCR/
+│ └── tesseract.exe
+└── poppler-24.12.0/
+└── Library/
+└── bin/
 
 ## Installation
 
